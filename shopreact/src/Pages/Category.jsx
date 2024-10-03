@@ -1,4 +1,3 @@
-// Category.jsx
 import { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import axios from "axios";
@@ -11,8 +10,12 @@ export default function Category() {
 
     async function fetchProductsByCategory() {
         setLoading(true);
-        const response = await axios.get(`https://fakestoreapi.com/products/category/${category}`);
-        setProducts(response.data);
+        try {
+            const response = await axios.get(`https://fakestoreapi.com/products/category/${category}`);
+            setProducts(response.data);
+        } catch (error) {
+            console.error("Failed to fetch products", error);
+        }
         setLoading(false);
     }
 
@@ -21,7 +24,7 @@ export default function Category() {
     }, [category]);
 
     return (
-        <section className="flex justify-center gap-2 m-auto container flex-wrap">
+        <section className="flex flex-wrap justify-center gap-4 m-auto container mt-20">
             {loading ? (
                 <progress className="progress w-56"></progress>
             ) : (
