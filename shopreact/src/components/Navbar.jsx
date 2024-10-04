@@ -11,7 +11,6 @@ export default function Navbar() {
   const [highlightedIndex, setHighlightedIndex] = useState(-1);
   const navigate = useNavigate();
 
-  // Fetch products on mount
   useEffect(() => {
     async function fetchProducts() {
       const response = await axios.get("https://fakestoreapi.com/products");
@@ -20,7 +19,6 @@ export default function Navbar() {
     fetchProducts();
   }, []);
 
-  // Handle search input change and set suggestions
   const handleInputChange = (e) => {
     const query = e.target.value;
     setSearchQuery(query);
@@ -84,11 +82,11 @@ export default function Navbar() {
   ];
 
   return (
-    <div className="navbar bg-base-100 shadow-lg sticky top-0 z-50 mx-auto">
+    <div className="navbar bg-base-100 shadow-lg sticky top-0 z-50 mx-auto px-4 md:px-10">
       <div className="flex-1">
         <NavLink
           to="/"
-          className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-500 text-white font-bold normal-case text-xl"
+          className="btn bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-500 text-white font-bold normal-case text-lg md:text-xl"
         >
           Shop React
         </NavLink>
@@ -103,7 +101,7 @@ export default function Navbar() {
             <input
               type="text"
               placeholder="🔍 Search products..."
-              className="input input-bordered w-full max-w-xs rounded-full pl-10 text-sm"
+              className="input input-bordered w-full max-w-xs rounded-full pl-10 text-xs sm:text-sm md:text-base"
               value={searchQuery}
               onChange={handleInputChange}
               onKeyDown={handleKeyDown}
@@ -130,17 +128,17 @@ export default function Navbar() {
         )}
       </div>
 
-      <div className="flex-none">
+      <div className="flex-none flex items-center gap-4">
         <div className="dropdown dropdown-end">
           <label
             tabIndex={0}
-            className="btn bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-600 text-white font-semibold"
+            className="btn bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-600 text-white font-semibold text-sm sm:text-base"
           >
             Categories
           </label>
           <ul
             tabIndex={0}
-            className="menu menu-sm dropdown-content bg-gradient-to-r from-blue-100 via-purple-100 to-indigo-100 rounded-box z-[100] mt-3 p-2 shadow-lg"
+            className="menu menu-sm dropdown-content bg-gradient-to-r from-blue-100 via-purple-100 to-indigo-100 rounded-box z-[100] mt-3 p-2 shadow-lg w-32 sm:w-40"
           >
             {categories.map((category, index) => (
               <li key={index}>
@@ -160,7 +158,7 @@ export default function Navbar() {
             <div className="indicator">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-5 w-5 sm:h-6 sm:w-6"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -179,13 +177,10 @@ export default function Navbar() {
           </div>
           <div
             tabIndex={0}
-            className="card card-compact dropdown-content bg-blue-200 z-[100] mt-3 w-52 shadow"
+            className="card card-compact dropdown-content bg-blue-200 z-[100] mt-3 w-48 sm:w-56 shadow"
           >
-            {" "}
-            {/* Updated background color */}
             <div className="card-body">
               <span className="text-lg font-bold">{cart.length} items</span>
-              <span className="text-info">Subtotal: $999</span>
               <div className="card-actions">
                 <NavLink to="/checkout" className="btn btn-primary btn-block">
                   View Cart
@@ -197,7 +192,7 @@ export default function Navbar() {
 
         <div className="dropdown dropdown-end">
           <div tabIndex={0} className="btn btn-ghost btn-circle avatar">
-            <div className="w-10 rounded-full">
+            <div className="w-8 sm:w-10 rounded-full">
               <img
                 alt="User Avatar"
                 src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
@@ -205,19 +200,19 @@ export default function Navbar() {
             </div>
           </div>
           <ul
-            tabIndex={0}
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow-lg"
-          >
-            <li>
-              <a className="justify-between">Profile</a>
-            </li>
-            <li>
-              <a>Settings</a>
-            </li>
-            <li>
-              <a>Logout</a>
-            </li>
-          </ul>
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-40 sm:w-52 p-2 shadow-lg"
+            >
+                <li>
+                  <NavLink to="/profile">Profile</NavLink> {/* Link to profile page */}
+                </li>
+                <li>
+                  <a>Settings</a>
+                </li>
+                <li>
+                  <a>Logout</a>
+                </li>
+        </ul>
         </div>
       </div>
     </div>

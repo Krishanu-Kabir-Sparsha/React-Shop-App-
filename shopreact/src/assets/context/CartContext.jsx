@@ -1,19 +1,35 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from 'react';
 
-
+// Create the CartContext
 export const CartContext = createContext();
 
+export const CartProvider = ({ children }) => {
+  // Load cart from localStorage, or use an empty array if nothing is saved
+  const [cart, setCart] = useState(() => {
+    const storedCart = localStorage.getItem('cart');
+    return storedCart ? JSON.parse(storedCart) : [];
+  });
 
-export const CartProvider = ({children}) => {
-    const [cart, setCart] = useState([]);
+  // Update localStorage whenever the cart changes
+  useEffect(() => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+  }, [cart]);
 
-    const addToCart = (product) => { //addToCart is a handler. will be used in the product page
+  // Add a product to the cart
+  const addToCart = (product) => {
+    setCart((prevCart) => [...prevCart, product]);
+  };
 
-        setCart([...cart, product]); //... spread operator used to determine the past values
-    };
-    return (
-    <CartContext.Provider value={{ cart, addToCart }}>
-        {children}
+  // Remove a product from the cart
+  const removeFromCart = (productId) => {
+    setCart((prevCart) => prevCart.filter(item => item.id !== productId));
+  };
+
+  console.log(cart); // For debugging
+
+  return (
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart }}>
+      {children}
     </CartContext.Provider>
-    );
+  );
 };

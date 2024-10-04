@@ -5,12 +5,12 @@ export default function ProductCard({ productInfo }) {
     const { title, description, image, price, id } = productInfo;
 
     return (
-        <div className="card bg-white shadow-lg rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out w-72">
+        <div className="card bg-white shadow-lg rounded-lg hover:shadow-xl transition-shadow duration-300 ease-in-out w-60 mx-2">
             <figure className="p-4">
                 <img
                     src={image}
                     alt={title}
-                    className="object-cover h-48 rounded-md"
+                    className="object-cover h-40 w-full rounded-md"
                 />
             </figure>
             <div className="card-body p-4">
